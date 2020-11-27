@@ -8,6 +8,7 @@ import { fonts } from '../../styles/fonts';
 export const subStyles = StyleSheet.create({
   btnMenuStyle: {
     width: 39,
+    overflow: 'visible',
   },
   carousel: {
     padding: 10,
@@ -17,6 +18,11 @@ export const subStyles = StyleSheet.create({
 
 export const Header = styled.View`
   overflow: hidden;
+  position: absolute;
+  padding: 10px;
+  width: 105%;
+  z-index: 3;
+  background-color: ${Colors.lighter};
 `;
 
 export const Title = styled.Text`
@@ -29,6 +35,7 @@ export const Title = styled.Text`
 export const View = styled.View`
   padding: 10px;
   flex: 1;
+  margin-top: 20px;
 `;
 
 export const ScrollView = styled.ScrollView`

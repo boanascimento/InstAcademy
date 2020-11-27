@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import * as S from './styles';
-import { Button, SafeAreaView, StatusBar, Text } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import { Module } from '../../models/Module';
 import { ViewNames } from '../../routes/StackNavigation';
 
@@ -22,7 +22,6 @@ export class ModuleDetailView extends Component<IModuleDetailProps> {
     super(props);
 
     this.module = new Module(props.route.params.module);
-    console.warn('TCL Bonny --> ModuleDetailView --> constructor --> props', props)
   }
 
   componentDidMount() {

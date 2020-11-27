@@ -27,10 +27,13 @@ import { ViewNames } from '../../routes/StackNavigation';
 import MenuIcon from '../../assets/svgs/menu-icon';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Header } from '../../components/Header/HeaderComponent';
 
 Icon.loadFont();
 
-type MainViewNavigationProp = StackNavigationProp<any> | DrawerNavigationProp<any>;
+type MainViewNavigationProp = DrawerNavigationProp<any> | StackNavigationProp<any>;
 
 interface IMainViewProps {
   navigation: MainViewNavigationProp
@@ -57,6 +60,7 @@ export class MainView extends Component<IMainViewProps> {
 
   private modules = Modules;
   private navigation: MainViewNavigationProp;
+  public change = true;
 
   constructor(props: IMainViewProps) {
     super(props);
@@ -74,6 +78,10 @@ export class MainView extends Component<IMainViewProps> {
           underlayColor="transparent">
           <ModuleCard module={item.item} />
         </TouchableHighlight>
+        <TouchableNativeFeedback >
+
+          <ModuleCard module={item.item} />
+        </TouchableNativeFeedback>
       </>
     );
   }
@@ -85,18 +93,21 @@ export class MainView extends Component<IMainViewProps> {
   render() {
     return (
       <>
-        <StatusBar barStyle="light-content" />
         <SafeAreaView>
-          <S.ScrollView contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={globalStyles.scrollView}>
-            <S.View>
-              <S.Header>
-                <S.BtnMenu
-                  icon={<MenuIcon />}
-                  type="clear"
-                  onPress={() => this.props.navigation.openDrawer()}
-                />
-              </S.Header>
+          <Header content={
+            <S.BtnMenu
+              icon={<MenuIcon change={this.change} />}
+              type="clear"
+              onPress={() => {
+                this.props.navigation.openDrawer();
+                this.change = !this.change;
+              }}
+            />
+          } />
+
+          <S.ScrollView contentInsetAdjustmentBehavior="automatic">
+            <S.View
+              style={globalStyles.scrollView}>
               <S.Title>InstAcademy</S.Title>
               <S.ViewCarousel style={styles.viewCarousel}>
                 <Carousel
@@ -110,7 +121,8 @@ export class MainView extends Component<IMainViewProps> {
                   data={this.modules}
                   onSnapToItem={(index) => this.setState({ activeSlide: index })}
                   activeSlideAlignment={'start'}
-                  inactiveSlideScale={0.9}
+                  inactiveSlideScale={1}
+                  inactiveSlideOpacity={1}
                 />
               </S.ViewCarousel>
             </S.View>
